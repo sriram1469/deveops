@@ -1,0 +1,84 @@
+FILE & DIRECTORY
+ls # List files and folders
+ls -la # List all files (including hidden) with details
+pwd # Show current directory path
+cd # Change directory
+cd .. # Go to parent directory
+mkdir # Create a new directory
+rmdir # Remove empty directory
+touch # Create an empty file
+cp # Copy files or directories
+mv # Move or rename files/directories
+rm # Delete a file
+rm -rf # Force delete directory and contents
+find # Search for files and directories
+locate # Quickly find a file (uses database)
+tree # Show folder structure as a tre
+VIEWING FILES
+cat  # Show full file content
+head -n # Show first n lines of a file
+tail -n # Show last n lines of a file
+tail -f # Follow log file in real time
+grep     # Search for text inside files
+grep -i # Case-insensitive search
+grep -r # Search recursively through directories
+grep -rn #Search recursively with line numbers
+wc # Count lines, words, and characters
+sort # Sort lines of text
+uniq # Remove duplicate adjacent lines
+less # Scroll through file content 
+more # Page through file content (forward only)
+PERMISSIONS & OWNERSHIP
+chmod # Change file permissions
+chmod +x # Make a file executable
+chmod 755 # Set permissions: rwxr-xr-x
+chmod 644 # Set permissions: rw-r--r-- 
+chmod 600 # Set permissions: rw------- 
+chmod 777 # Set permissions: rwxrwxrwx 
+chmod 400 # Set permissions: r-------- 
+chown # Change file owner
+chgrp # Change file group
+PROCESSES
+ps # Show running processes
+ps aux # Show all processes with details
+top # Live view of system processes
+htop # Interactive process viewer
+kill <PID> # Kill a process by ID
+kill -9 <PID> # Force kill a process
+pkill name # Kill a process by name
+bg # Resume suspended job in background
+fg # Bring background job to foreground
+
+NETWORKING
+ping host # Test connectivity to host
+curl <url> # Transfer data from or to a URL
+wget <url> # Download file from URL
+netstat -tulpn # Show open ports and listening services
+ss -tulpn # Modern replacement for netstat
+ssh user@host # Connect to remote server
+rsync -av source/ dest/ # Sync files and directories
+scp <file> user@host:<path> # Copy file over SSH
+
+SHELL BASICS
+echo <text> # Print text to the terminal.
+man # Show the manual for a command.
+which # Show the path of a command.
+alias # Create a shortcut for a command.
+env # Show environment variables
+printenv # Print environment variables.
+export # Set environment variables.
+tar # Archive and extract files.
+zip / unzip # Compress and extract zip files.
+awk # Extract and process text.
+sed # Edit text streams.
+tr # Translate or replace characters.
+xargs # Pass output from one command into another.
+crontab # Schedule recurring tasks
+
+
+
+
+
+
+
+
