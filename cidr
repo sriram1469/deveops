@@ -1,0 +1,52 @@
+In AWS, CIDR (Classless Inter-Domain Routing) is used to define IP address ranges for Virtual Private Clouds (VPCs) and their subnets. Every VPC must have at least one IPv4 CIDR block, and you can optionally add more IPv4 or IPv6 CIDR blocks to expand your network.
+
+1. VPC CIDR Blocks
+Mandatory: Each VPC requires one primary IPv4 CIDR block.
+
+Range: Allowed block sizes are between /16 (65,536 IPs) and /28 (16 IPs).
+
+Private Ranges (RFC 1918):
+
+10.0.0.0/8 → Example: 10.0.0.0/16
+
+172.16.0.0/12 → Example: 172.31.0.0/16
+
+192.168.0.0/16 → Example: 192.168.0.0/20
+
+Restrictions: You cannot use ranges like 127.0.0.0/8 (loopback), 169.254.0.0/16 (link-local), or 224.0.0.0/4 (multicast).
+
+2. Subnets
+Subnets are created within the VPC CIDR block.
+
+Each subnet must be a subset of the VPC CIDR.
+
+Example: If VPC = 10.0.0.0/16, you can create subnets like 10.0.1.0/24, 10.0.2.0/24.
+
+3. Multiple CIDR Blocks
+You can associate up to 5 IPv4 and 5 IPv6 CIDR blocks with a VPC (limit adjustable).
+
+Useful when you need more IP addresses or want to segment workloads.
+
+Adding a CIDR automatically updates the VPC route tables to allow routing between CIDR ranges.
+
+4. IPv6 CIDR Blocks
+AWS allows adding one or more IPv6 CIDR blocks.
+
+Typically allocated from Amazon’s IPv6 pool.
+
+Useful for modern applications requiring global addressing.
+
+5. Best Practices
+Avoid conflicts: Don’t use 172.17.0.0/16 because AWS services like Cloud9 and SageMaker use it internally.
+
+Plan ahead: Choose CIDR ranges that won’t overlap with your on-premises or other cloud networks if you plan hybrid connectivity.
+
+Canonical form: AWS automatically normalizes CIDR input (e.g., 100.68.0.18/18 becomes 100.68.0.0/18).
+
+| Feature         | IPv4 CIDR Block | IPv6 CIDR Block |
+| ---             | ---             | ---             |
+| **Requirement** | Mandatory       | Optional        |
+| **Range**       | /16 to /28      | Allocated by AWS |
+| **Default Limit** | 5 per VPC     |  5 per VPC |
+| **Use Case** | Internal/private networking | Global addressing |
+| **Examples**    | ``10.0.0.0/16`` | ``2600:1f18::/56`` |

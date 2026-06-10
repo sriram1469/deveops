@@ -1,0 +1,79 @@
+An IP address (Internet Protocol address) is a unique identifier assigned to each device connected to a network, allowing it to communicate with other devices. Think of it like a "digital home address" for your computer, phone, or server.
+
+🌐 Types of IP Addresses
+IPv4: The older format, written as four numbers separated by dots (e.g., 192.168.1.1). Limited to about 4.3 billion unique addresses.
+
+IPv6: The newer format, written in hexadecimal with colons (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334). Designed to handle the massive growth of internet-connected devices.
+
+📌 Categories
+Public IP: Assigned by your Internet Service Provider (ISP). Identifies your device on the wider internet.
+
+Private IP: Used within local networks (like your home Wi-Fi). Examples: 192.168.x.x, 10.x.x.x.
+
+Static IP: Manually set and doesn’t change. Useful for servers.
+
+Dynamic IP: Assigned automatically by DHCP and may change over time.
+
+🔑 Key Uses
+Routing data between devices
+
+Identifying devices on a network
+
+Enabling websites, apps, and services to know where to send information
+1. VPC & CIDR Blocks
+When you create a VPC, you assign it a CIDR block (e.g., 10.0.0.0/16).
+
+This defines the range of private IPv4 addresses available inside the VPC.
+
+You can also assign an IPv6 CIDR block for dual-stack networking.
+
+2. Private vs Public IPs
+Private IPs:
+
+Assigned automatically to every EC2 instance from the subnet’s CIDR block.
+
+Used for internal communication between resources in the same VPC.
+
+Persist across stop/start cycles but are released when the instance is terminated.
+
+Public IPs:
+
+Optional and allow internet access.
+
+Can be automatically assigned or manually attached via Elastic IPs (static public IPs).
+
+Traffic between AWS VPCs using public IPs stays on AWS’s private backbone, not the public internet.
+
+3. Elastic Network Interfaces (ENIs)
+Each EC2 instance has a primary ENI with a primary private IP.
+
+You can attach secondary private IPs to ENIs for multi-IP workloads.
+
+ENIs can be moved between instances, making IPs flexible for failover setups.
+
+4. IPv6 Support
+AWS supports dual-stack subnets (IPv4 + IPv6).
+
+IPv6 addresses are globally unique and internet-routable.
+
+Useful for scaling applications that need massive address space.
+
+5. IP Address Management (IPAM)
+AWS provides VPC IP Address Manager (IPAM) to centrally manage IP allocations across multiple VPCs and accounts.
+
+Helps avoid overlapping CIDR blocks and ensures compliance with organizational IP policies.
+| Feature         |   Private IP (VPC)     | Public IP                 | Elastic IP | IPv6 |
+| ---             | ---                    | ---                       | ---        | --- |
+| **Scope**       | Internal only          | Internet                  | Internet   | Global |
+| **Persistence** | Stays until termination| Dynamic                   | Static     | Static |
+| **Use Case**    | Internal comms         | Temporary internet access | Permanent internet-facing apps | Large-scale, global apps |
+| **Assignment**  | Auto from subnet       | Auto/manual               | Manual     | Auto/manual |
+
+⚠️ Key Considerations
+CIDR Planning: Poor subnet planning can cause IP exhaustion.
+
+Elastic IP Costs: Charged if allocated but not in use.
+
+Security: Public IPs expose resources; always use Security Groups and NACLs.
+
+Hybrid Networking: AWS allows routing between on-premises and cloud using private IPs via VPN/Direct Connect.

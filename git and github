@@ -146,3 +146,14 @@ $ git clone <copied URL>
 To specify a specific folder to clone to, add the name of the folder 
 after the repository URL, like this - 
 $ git clone <copied URL> <folder name>
+
+
+
+Real time scenarois
+
+1) If Developer Accidentally Deleted Commit history
+-------> git log --oneline
+2)to remove 2 commits
+------->git reset --hard HEAD~2
+3)to get lost commits
+------->git reflog 
