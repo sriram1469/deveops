@@ -1,0 +1,57 @@
+In AWS, Network ACLs (NACLs) are stateless firewalls that operate at the subnet level, controlling inbound and outbound traffic for all resources within that subnet.
+
+🔑 Key Concepts of NACLs
+Subnet-Level Control
+
+Unlike security groups (instance-level), NACLs apply rules to entire subnets.
+
+Every subnet in a VPC must be associated with a NACL (default or custom).
+
+Inbound & Outbound Rules
+
+Rules are evaluated in order, starting from the lowest rule number.
+
+Each rule specifies allow or deny, protocol, port range, and source/destination.
+
+Example: Deny all traffic from a suspicious IP range.
+
+Stateless Behavior
+
+Responses are not automatically allowed.
+
+You must explicitly configure both inbound and outbound rules for return traffic.
+
+Default NACL
+
+Automatically created with each VPC.
+
+By default, it allows all inbound and outbound traffic.
+⚙️ Practical Examples
+Public Subnet (Web Tier)
+
+Inbound: Allow HTTP/HTTPS from anywhere.
+
+Outbound: Allow all traffic.
+
+Private Subnet (Database Tier)
+
+Inbound: Allow MySQL (3306) only from the web tier subnet.
+
+Outbound: Deny all except required application traffic.
+
+Blocking Malicious IPs
+
+Add a deny rule for a specific CIDR range (e.g., 203.0.113.0/24).
+
+⚠️ Best Practices
+Use NACLs for broad subnet-level restrictions (e.g., block IP ranges).
+
+Combine with Security Groups for layered defense.
+
+Order matters → Place specific rules before general ones.
+
+Audit regularly → Remove unused or overly permissive rules.
+
+Default deny strategy → Explicitly allow only what’s needed.
+
+✅ Bottom Line: NACLs provide stateless, subnet-level traffic filtering in AWS. They complement security groups by adding an extra layer of control, especially useful for blocking unwanted IP ranges or enforcing subnet-wide policies.

@@ -1,0 +1,43 @@
+In AWS, a subnet is a logical subdivision of your VPC (Virtual Private Cloud) — it defines a smaller range of IP addresses within the VPC’s CIDR block. Subnets help organize and isolate resources based on their function, accessibility, or security level.
+
+🧩 Types of Subnets in AWS
+
+**Public Subnet** :-Connected to an **Internet Gateway (IGW)**. Instances here can send/          receive traffic from the internet. used for Web servers, load balancers 
+**Private Subnet** :- No direct internet access. Outbound traffic goes through a **NAT Gateway** or **NAT Instance**. used for Databases, application servers 
+**Isolated Subnet** :-No route to the internet at all. used for Sensitive workloads, internal-only systems 
+
+⚙️ Subnet Configuration Basics
+Each subnet resides in one Availability Zone (AZ).
+
+You assign a CIDR block to each subnet (e.g., 10.0.1.0/24).
+
+Subnets are associated with route tables that define traffic flow.
+
+You can attach Network ACLs (NACLs) for subnet-level security.
+
+Security Groups protect individual instances within subnets.
+
+🧠 Example Setup
+Component	     CIDR Block	       AZ	      Purpose
+VPC      	    10.0.0.0/16	        —	      Entire network
+Public Subnet	10.0.1.0/24	    ap-south-1a	  Web servers
+Private Subnet	10.0.2.0/24  	ap-south-1b	  Databases
+Isolated Subnet	10.0.3.0/24  	ap-south-1c	  Internal services
+
+✅ Best Practices
+Use multiple AZs for high availability.
+
+Keep public and private subnets separate for security.
+
+Enable Flow Logs to monitor traffic.
+
+Plan CIDR blocks carefully to avoid overlaps.
+
+Use IPAM (IP Address Manager) for centralized IP management.
+
+💡 Exam Tip: Always remember the formula:
+
+Number of subnets =2^(new prefix − old prefix)
+no.of ip's =2^(32-n)
+usable ips =2^(32-n)-2
+

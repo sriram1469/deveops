@@ -1,0 +1,69 @@
+An Elastic IP (EIP) in AWS VPC is a static, public IPv4 address that you can allocate to your account and associate with EC2 instances or network interfaces, ensuring a consistent public endpoint even if the underlying instance changes. It’s especially useful for failover, DNS stability, and internet-facing applications.
+
+🔑 Key Concepts of Elastic IP in VPC
+Static Public IPv4 Address
+
+Unlike automatically assigned public IPs, Elastic IPs remain fixed until you release them.
+
+They provide a permanent endpoint for applications and services.
+
+Association Options
+
+Can be associated with instances or network interfaces.
+
+Associating with a network interface allows you to move the interface (and its IP) between instances in one step.
+
+Failover Capability
+
+If an instance fails, you can remap the EIP to another instance in the same VPC.
+
+This minimizes downtime and ensures service continuity.
+
+Internet Access Requirement
+
+To use an EIP for inbound/outbound traffic, your VPC must have an Internet Gateway attached.
+
+Security Groups and NACLs must allow traffic.
+
+⚙️ How to Use Elastic IPs
+Allocate an Elastic IP
+
+Go to VPC Console → Elastic IPs → Allocate Elastic IP.
+
+Choose a network border group (availability zone/local zone grouping).
+
+Associate with Resource
+
+Attach the EIP to an EC2 instance or ENI.
+
+If associated with the primary ENI, the existing public IP is released.
+
+Disassociate/Remap
+
+You can disassociate and reassign the EIP to another resource as needed.
+
+Release
+
+If no longer required, release the EIP back to AWS’s pool.
+
+
+📊 Comparison: Elastic IP vs Public IP
+Feature	                 Elastic IP (EIP)	                Auto-assigned Public IP
+Persistence	          Static until released	                 Changes on stop/start
+Failover Support	  Yes, can remap to another instance	    No
+Cost	              Free when in use; 
+                      charged if allocated but unused	      Free
+Association             	Instance or ENI	                  Instance only
+Use Case	        DNS stability, production apps, 
+                              failover	                      Temporary internet access
+
+⚠️ Limitations & Considerations
+Quota: Default limit is 5 Elastic IPs per account per region. Use NAT gateways if more are needed.
+
+IPv6: Elastic IPs are not supported for IPv6.
+
+Cost: AWS charges for unused EIPs (allocated but not associated).
+
+Security: Always configure Security Groups and NACLs properly to avoid exposure.
+
+✅ Bottom Line: Elastic IPs in AWS VPC provide a reliable, static public IP for internet-facing workloads, ensuring high availability and DNS stability. For interviews or practical use, focus on allocation, association with ENIs, failover benefits, and cost considerations.

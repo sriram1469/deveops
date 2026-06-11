@@ -1,0 +1,61 @@
+VPC Peering in AWS allows you to connect two Virtual Private Clouds (VPCs) privately — as if they were part of the same network — without using public internet routes. It’s ideal for secure communication between environments (like dev ↔ prod, or cross-account setups).
+
+🔗 Core Concept
+A VPC Peering Connection is a network link between two VPCs that enables traffic routing using private IPs.
+
+Works across same or different AWS accounts.
+
+Can be intra-region or inter-region (between different AWS regions).
+
+Uses private IP addressing — no need for VPN or public endpoints.
+
+🧩 Key Components
+Component	        Description	                                                                    Example
+Requester VPC	The VPC initiating the peering request.	                                          VPC-A (10.0.0.0/16)
+Accepter VPC	The VPC receiving and accepting the request.	                                  VPC-B (192.168.0.0/16)
+Route Tables	Must be updated in both VPCs to route traffic through the peering connection.	  Add route to peer CIDR
+DNS Resolution	Optional — can enable private DNS resolution across peered VPCs.	              Useful for internal services
+⚙️ How It Works (Step-by-Step)
+Create Peering Connection
+
+From VPC console → “Peering Connections” → “Create Peering Connection.”
+
+Specify requester and accepter VPCs.
+
+Accept the Request
+
+The accepter VPC owner must approve the connection.
+
+Update Route Tables
+
+Add routes in both VPCs pointing to the peer’s CIDR via the peering connection.
+
+Modify Security Groups
+
+Allow inbound/outbound traffic from the peer’s CIDR range.
+
+Test Connectivity
+
+Ping or SSH between instances using private IPs.
+
+🚫 Limitations
+No transitive peering → VPC-A ↔ VPC-B ↔ VPC-C doesn’t automatically connect all three.
+
+Overlapping CIDR blocks → Peering not allowed.
+
+No edge-to-edge routing → Can’t route traffic to internet gateways, VPNs, or NATs through a peer.
+
+Manual route updates → No automatic propagation.
+
+🧠 Best Practices
+Plan non-overlapping CIDR ranges early.
+
+Use tags to track peering connections.
+
+Enable DNS resolution for smoother internal communication.
+
+Use AWS Transit Gateway for complex multi-VPC topologies.
+
+Regularly audit route tables and SGs for consistency.
+
+✅ In short: VPC Peering is a simple, cost-effective way to connect private networks securely — perfect for internal communication between environments or accounts.

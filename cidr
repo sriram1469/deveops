@@ -50,3 +50,37 @@ Canonical form: AWS automatically normalizes CIDR input (e.g., 100.68.0.18/18 be
 | **Default Limit** | 5 per VPC     |  5 per VPC |
 | **Use Case** | Internal/private networking | Global addressing |
 | **Examples**    | ``10.0.0.0/16`` | ``2600:1f18::/56`` |
+
+| CIDR Block         | Prefix Length | Total Addresses | Usable Hosts |
+| ---                | ---           | ---             | --- |
+| ``10.0.0.0/8``     | 8             | 16,777,216      | 16,777,214 |
+| ``172.16.0.0/12``  | 12            | 1,048,576       | 1,048,574 |
+| ``192.168.1.0/24`` | 24            | 256             | 254 |
+| ``192.168.1.0/25`` | 25            | 128             | 126 |
+| ``192.168.1.0/28`` | 28            | 16              | 14   |
+
+
+✅ Advantages of CIDR
+Efficient IP usage: Prevents wastage compared to rigid classful addressing.
+
+Flexible allocation: Supports networks of any size.
+
+Improved routing: Enables route summarization (supernetting), reducing routing table entries.
+
+Supports VLSM (Variable Length Subnet Masking): Different subnet sizes within the same network.
+
+⚠️ Limitations & Risks
+Complexity: More difficult to manage than class-based addressing.
+
+Compatibility: Some older devices may not support CIDR.
+
+Security: Requires careful firewall and ACL configuration to avoid misrouting.
+
+
+This structure shows how CIDR blocks are hierarchical:
+
+Large block at the VPC level.
+
+Divided into smaller subnet blocks.
+
+Finally assigned to individual EC2 instances.

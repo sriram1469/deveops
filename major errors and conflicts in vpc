@@ -1,0 +1,95 @@
+🚨 Major Errors & Conflicts in VPC
+1. CIDR Block Overlaps
+Defining overlapping IP ranges between VPCs or with on-premises networks.
+
+Causes routing conflicts and failed peering connections.
+
+Example: Two VPCs both using 10.0.0.0/16.
+
+2. Incorrect Subnet Design
+Assigning too small CIDR ranges → running out of IPs quickly.
+
+Placing all resources in one subnet → no separation of public/private workloads.
+
+Forgetting that each subnet must reside in a single Availability Zone.
+
+3. Route Table Misconfigurations
+Missing or incorrect routes to Internet Gateway (IGW) or NAT Gateway.
+
+Accidentally routing private subnet traffic directly to IGW (security risk).
+
+Overlapping or conflicting routes that override intended paths.
+
+4. Internet Gateway / NAT Gateway Issues
+IGW not attached to the VPC → public instances can’t reach the internet.
+
+NAT Gateway placed in a private subnet → breaks outbound internet access.
+
+Forgetting Elastic IP association with NAT Gateway.
+
+5. Security Group & NACL Conflicts
+Security Groups allow traffic but NACLs deny it (or vice versa).
+
+Overly permissive rules (e.g., 0.0.0.0/0 for SSH).
+
+Forgetting that NACLs are stateless → must configure both inbound and outbound rules.
+
+6. Peering & Transit Gateway Errors
+Attempting to peer VPCs with overlapping CIDRs → not allowed.
+
+Forgetting that VPC peering does not support transitive routing.
+
+Misconfigured Transit Gateway route tables causing blackholes.
+
+7. DNS & Hostname Resolution Problems
+Disabling DNS resolution in VPC settings → instances can’t resolve AWS service endpoints.
+
+Forgetting to enable DNS hostnames for public instances.
+
+8. Elastic IP & Resource Conflicts
+Releasing Elastic IPs accidentally → they may be permanently lost.
+
+Assigning the same Elastic IP to multiple resources → conflict.
+
+9. Flow Logs & Monitoring Gaps
+Not enabling VPC Flow Logs → blind spots in troubleshooting.
+
+Misconfigured IAM roles preventing logs from being delivered to CloudWatch/S3.
+
+10. Overly Complex or Flat Architectures
+Putting all workloads in one VPC without segmentation → hard to scale and secure.
+
+Over-engineering with too many VPCs and peering connections → routing chaos.
+
+✅ Best Practices to Avoid Conflicts
+Plan CIDR ranges carefully with IPAM (IP Address Manager).
+
+Separate workloads into public, private, and isolated subnets.
+
+Always attach IGW for public subnets and NAT Gateway for private subnets.
+
+Use least privilege in SGs and NACLs.
+
+Document and audit route tables regularly.
+
+Enable Flow Logs for visibility.
+
+Use Transit Gateway for complex multi-VPC architectures.
+
+**troubleshooting**
+
+This visual guide walks you through resolving VPC issues step by step:
+
+Start → Check CIDR Blocks for overlaps.
+
+Review Subnets for proper AZ placement and public/private split.
+
+Inspect Route Tables to confirm correct routing paths.
+
+Verify IGW/NAT Gateway setup and Elastic IP association.
+
+Check Security Groups & NACLs for rule conflicts.
+
+Test Peering / Transit Gateway connections for CIDR or route issues.
+
+Finish → Issue Resolved!

@@ -1,0 +1,65 @@
+In AWS, security groups act as virtual firewalls for your resources, controlling inbound and outbound traffic at the instance level. They are stateful, meaning return traffic is automatically allowed, and they are essential for securing EC2 instances, RDS databases, and other VPC resources.
+
+🔑 Key Concepts of Security Groups
+Default Security Group
+
+Every VPC comes with a default security group.
+
+By default, it allows all outbound traffic but no inbound traffic unless explicitly added.
+
+Inbound Rules
+
+Define what traffic can enter your resource.
+
+Specify protocol (TCP/UDP/ICMP), port range, and source (IP/CIDR or another SG).
+
+Example: Allow SSH (TCP port 22) only from your office IP.
+
+Outbound Rules
+
+Define what traffic can leave your resource.
+
+Example: Allow HTTP/HTTPS traffic to the internet.
+
+Stateful Behavior
+
+If inbound traffic is allowed, the response is automatically permitted outbound.
+
+No need to create separate return rules
+
+Security Groups vs. Network ACLs
+Feature	                        Security Groups (SG)	                        Network ACLs (NACLs)
+Scope	                          Instance-level	                             Subnet-level
+Stateful/Stateless	              Stateful	                                     Stateless
+Default Behavior	              Allow all outbound	Deny all inbound/outbound unless rules added
+Use Case	          Fine-grained control for EC2, RDS	                Broad subnet-level filtering
+
+⚙️ Practical Examples
+Web Server (EC2)
+
+Inbound: Allow TCP 80 (HTTP) and 443 (HTTPS) from anywhere.
+
+Outbound: Allow all traffic (default).
+
+Database (RDS)
+
+Inbound: Allow TCP 3306 (MySQL) only from the web server’s security group.
+
+Outbound: Allow all traffic (default).
+
+SSH Access
+
+Inbound: Allow TCP 22 only from your office IP (e.g., 203.0.113.25/32).
+
+⚠️ Best Practices
+Principle of Least Privilege → Only open required ports.
+
+Restrict by CIDR/IP → Avoid 0.0.0.0/0 for SSH/RDP.
+
+Use SG References → Link SGs instead of IPs for dynamic environments.
+
+Audit Regularly → Remove unused rules to reduce attack surface.
+
+Tag Security Groups → Helps organize and track usage across environments.
+
+✅ Bottom Line: Security groups are the first line of defense in AWS networking. They provide flexible, instance-level traffic control and should be carefully designed with least privilege principles to secure workloads effectively.
