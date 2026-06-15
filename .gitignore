@@ -1,1 +1,4 @@
 OneDrive/Desktop/deveops/deveops/
+.terraform/
+*.exe
+terraform.exe
