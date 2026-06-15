@@ -112,6 +112,17 @@ pipeline {
         }
     }
 }
+
+🔑 Key Sections
+pipeline { } → Defines the whole pipeline.
+
+agent any → Runs on any available Jenkins agent.
+
+tools { } → Declares required tools (Maven, JDK, etc.).
+
+stages { } → Each stage (Checkout, Build, Test, Package, Deploy).
+
+post { } → Actions after pipeline finishes (success/failure notifications).
 🧠 Interview Narration Tip
 “In Jenkins, I define my pipeline in a Jenkinsfile. It starts with checking out code from GitHub, then runs Maven commands for build, test, and packaging. Finally, it deploys the artifact to a server. Each stage is isolated, and Jenkins provides feedback at the end. This demonstrates CI/CD automation with Maven in a reproducible way.”
 
