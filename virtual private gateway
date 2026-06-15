@@ -1,0 +1,34 @@
+Virtual Private Gateway (VGW) in AWS is the AWS-side endpoint of a Site-to-Site VPN connection. It acts as the entry point into your VPC, allowing secure communication between your on-premises network and AWS resources.
+
+🔑 Core Concepts
+AWS-managed component → You don’t configure hardware; AWS handles it.
+
+Attached to a VPC → Each VGW connects to one VPC at a time.
+
+Works with Customer Gateway (CGW) → Together, they form the VPN connection.
+
+Supports IPsec encryption → Ensures secure data transfer over the internet.
+
+Routing options → Static or dynamic (via BGP).
+
+⚙️ How It Works (Step-by-Step)
+Create a Virtual Private Gateway in AWS.
+
+Attach it to your VPC → This makes the VPC reachable via VPN.
+
+Create a Customer Gateway → Represents your on-premises router/firewall.
+
+Establish VPN Connection → AWS links the VGW and CGW using IPsec tunnels.
+
+Update Route Tables → Add routes pointing to the VGW for on-premises networks.
+
+Traffic Flow → Encrypted traffic passes through VGW into your VPC.
+
+🚫 Limitations
+Can attach to only one VPC.
+
+No transitive routing (VPC A can’t talk to VPC B through VGW).
+
+Less scalable for multi-VPC architectures.
+
+✅ Bottom Line: The Virtual Private Gateway is your secure AWS endpoint for VPN connections — ideal for connecting a single VPC to your on-premises network. For larger, multi-VPC setups, Transit Gateway is the next step up.

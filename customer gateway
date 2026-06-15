@@ -1,0 +1,45 @@
+Customer Gateway (CGW) in AWS is the representation of your on-premises network device (like a router or firewall) inside AWS. It’s a critical component when setting up a Site-to-Site VPN connection between your data center and AWS.
+
+🔑 Key Points
+Logical Representation → The CGW doesn’t create a device in AWS; it’s a configuration object that tells AWS about your on-premises router/firewall.
+
+IP Address → You provide the public IP address of your physical device.
+
+Routing Options → Supports static routing (you manually define routes) or dynamic routing (via BGP).
+
+Security → Works with IPsec tunnels to encrypt traffic.
+
+Pairing → Always paired with a Virtual Private Gateway (VGW) or Transit Gateway (TGW) on the AWS side.
+
+⚙️ How It Works (Step-by-Step)
+Create Customer Gateway in AWS console.
+
+Provide the public IP of your on-premises router/firewall.
+
+Choose routing type (static or dynamic).
+
+Create Virtual Private Gateway (VGW) or use Transit Gateway.
+
+Establish VPN Connection → AWS links the CGW with VGW/TGW.
+
+Configure On-Premises Device → Download AWS config file and apply it to your router/firewall.
+
+Traffic Flow → Encrypted traffic flows between your data center and AWS VPC.
+
+📊 Customer Gateway vs Virtual Private Gateway
+Feature         Customer Gateway (CGW)	                Virtual Private Gateway (VGW)
+Location	On-premises (your router/firewall)	         AWS side (attached to VPC)
+Purpose	     Represents your physical device	          Entry point into AWS VPC
+IP Address	     Public IP of your device	                AWS-managed
+Routing	        Static or dynamic (BGP)	                 Works with CGW routing
+Use Case	     Connects your data center	               Connects AWS VPC
+
+
+🚫 Limitations
+Requires a stable public IP on your router/firewall.
+
+Bandwidth limited by internet connection.
+
+Complex setup if BGP isn’t supported on your device.
+
+✅ Bottom Line: The Customer Gateway is essentially AWS’s way of recognizing and securely connecting to your physical network device. Without it, AWS wouldn’t know how to establish a VPN tunnel to your infrastructure.

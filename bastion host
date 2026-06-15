@@ -1,0 +1,36 @@
+Bastion Host in AWS is a special-purpose EC2 instance that acts as a secure entry point into your private network (VPC). It’s sometimes called a jump server because you “jump” through it to access other instances that don’t have public internet access.
+
+🔑 Key Features
+Publicly Accessible → Has a public IP and is placed in a public subnet.
+
+Secure Access → Used to SSH/RDP into instances in private subnets.
+
+Controlled Entry → Acts as the only gateway for administrators to reach private resources.
+
+Hardened Security → Minimal software installed, strict firewall rules, monitored closely.
+
+⚙️ How It Works
+You deploy a Bastion Host in a public subnet of your VPC.
+
+You allow inbound SSH (port 22) or RDP (port 3389) only from trusted IPs (like your office).
+
+Once connected to the Bastion Host, you can then SSH/RDP into private EC2 instances inside the VPC.
+
+Private instances don’t need public IPs — they remain isolated and secure.
+
+📊 Bastion Host vs VPN
+Feature	           Bastion Host                                     VPN
+Purpose	          Secure admin access to private EC2	Secure network-level connectivity
+Scope	           Instance-level access	              Entire network access
+Setup	         EC2 instance in public subnet	               VGW/TGW + CGW + tunnels
+Best Use Case	 Occasional admin access	               Hybrid cloud or remote workforce
+
+
+🚫 Limitations
+Single point of entry → must be hardened and monitored.
+
+Manual access → not ideal for large-scale user connectivity.
+
+Requires careful IAM + Security Group configuration.
+
+✅ Bottom Line: A Bastion Host is your secure “jump box” into AWS private subnets. It’s perfect for administrative access when you don’t want to expose private instances directly to the internet.

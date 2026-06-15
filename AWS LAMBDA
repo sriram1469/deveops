@@ -1,0 +1,58 @@
+AWS Lambda is a serverless compute service from Amazon Web Services that lets you run code without provisioning or managing servers, automatically scaling based on demand and charging only for the compute time used. It’s ideal for event-driven workloads like file uploads, API requests, real-time data streams, and scheduled tasks.
+
+🔑 Key Features of AWS Lambda
+Serverless execution: No need to manage servers or infrastructure.
+
+Automatic scaling: Functions scale up or down based on incoming requests.
+
+Pay-per-use pricing: Billed by the millisecond; no cost when idle.
+
+Event-driven model: Functions are triggered by events from AWS services (e.g., S3, DynamoDB, Kinesis).
+
+Durable functions: Extend execution up to 1 year for workflows requiring persistence.
+
+📌 Common Use Cases
+Web & Mobile Backends: Build secure, scalable API backends for apps.
+
+File Processing: Automatically process files uploaded to Amazon S3.
+
+Real-Time Data Processing: Handle streams from Kinesis, Kafka, or SQS.
+
+Batch Processing: Efficiently process large datasets for short periods.
+
+Scheduled Tasks: Automate jobs using Amazon EventBridge.
+
+IoT Backends: Manage device data and API requests at scale.
+
+⚖️ Pros & Cons of AWS Lambda
+Pros	                                                                     Cons
+No server management	                            Limited runtime (15 min for standard functions)
+Scales automatically	                         Cold start latency for infrequently used functions
+Cost-efficient (pay only for usage)	             Debugging and monitoring can be complex
+Integrates with many AWS services	                            Vendor lock-in with AWS ecosystem
+Supports multiple languages (Python, Node.js, Java, Go, etc.)	Not ideal for long-running compute-heavy tasks
+
+
+💡 Best Practices
+Optimize function size: Keep functions lightweight to reduce cold start times.
+
+Use environment variables: Manage configuration securely.
+
+Monitor with CloudWatch: Track logs and performance metrics.
+
+Leverage Layers: Share common code across functions.
+
+Secure with IAM roles: Restrict permissions to only what’s necessary.
+
+🚀 Getting Started
+Create a Lambda function in the AWS Management Console.
+
+Upload your code (ZIP file or container image).
+
+Configure triggers (e.g., S3 upload, API Gateway request).
+
+Test and monitor using AWS CloudWatch.
+
+Scale automatically without manual intervention.
+
+👉 If you’re building applications in India (like in Serilingampalli, TG), AWS Lambda is especially useful for scalable mobile backends and real-time analytics where traffic can spike unpredictably. It helps reduce infrastructure costs while maintaining performance.

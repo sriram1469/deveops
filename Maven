@@ -1,0 +1,136 @@
+Apache Maven is a powerful build automation and dependency management tool for Java projects. It uses a declarative XML file called pom.xml to define project structure, dependencies, plugins, and build lifecycle, making builds consistent and reproducible across environments.
+
+🔑 Key Features of Maven
+Project Object Model (POM) → Central configuration file (pom.xml) that defines dependencies, plugins, and build steps.
+
+Dependency Management → Automatically downloads required JARs from Maven Central Repository.
+
+Standard Directory Layout → Enforces a consistent project structure (src/main/java, src/test/java).
+
+Plugins → Extend functionality (e.g., Surefire for testing, Compiler plugin for compilation).
+
+Lifecycle Management → Built-in phases like compile, test, package, install, deploy.
+
+Multi-Module Projects → Supports large projects with multiple submodules.
+
+⚙️ How Maven Works
+Define POM → Add dependencies and plugins in pom.xml.
+
+Run Maven Commands → Example:
+
+mvn compile → Compiles source code.
+
+mvn test → Runs unit tests.
+
+mvn package → Creates JAR/WAR file.
+
+mvn install → Installs artifact into local repository.
+
+Dependency Resolution → Maven checks local repo, then downloads missing dependencies from Maven Central.
+
+Build Lifecycle Execution → Executes phases in order, ensuring consistent builds.
+
+📊 Maven vs Gradle
+Feature                	Maven	                             Gradle
+Configuration	    XML (pom.xml)	                         Groovy/Kotlin DSL
+Performance	      Slower (XML parsing)	                    Faster (incremental builds)
+Learning Curve	 Easier for beginners	              More flexible, steeper learning
+Community	     Larger, older	                         Growing rapidly
+Best Use Case	 Standard Java projects	              Complex builds, multi-language projects
+
+
+🚫 Limitations
+Verbose XML configuration.
+
+Slower builds compared to Gradle.
+
+Less flexible for non-Java projects.
+
+🧠 Best Practices
+Always specify dependency versions to avoid conflicts.
+
+Use dependency management section for consistent versions across modules.
+
+Keep plugins updated to avoid compatibility issues.
+
+Use Maven Wrapper (mvnw) to ensure consistent Maven version across environments.
+
+✅ Bottom Line: Maven is ideal for Java developers who want a standardized, reliable build system with strong dependency management. For highly customized or multi-language builds, Gradle may be better, but Maven remains the industry standard for most Java projects.
+
+
+⚙️ Lifecycle Phases
+validate → Check project correctness
+
+compile → Compile source code
+
+test → Run unit tests
+
+package → Create JAR/WAR
+
+verify → Run integration tests
+
+install → Install artifact into local repo
+
+deploy → Push artifact to remote repo
+
+🛠️ Common Commands
+mvn clean → Remove target/ directory
+
+mvn compile → Compile source code
+
+mvn test → Run tests
+
+mvn package → Build JAR/WAR
+
+mvn install → Install locally
+
+mvn deploy → Deploy to remote repo
+
+mvn dependency:tree → Show dependency hierarchy
+
+mvn site → Generate project documentation
+
+📦 Dependency Management
+mvn dependency:tree → Shows dependency hierarchy.
+
+mvn dependency:list → Lists all dependencies.
+
+mvn dependency:analyze → Analyzes dependency usage.
+
+mvn dependency:purge-local-repository → Clears local repo cache.
+
+🧪 Testing
+mvn test → Run unit tests.
+
+mvn surefire:test → Run tests with Surefire plugin.
+
+mvn failsafe:integration-test → Run integration tests.
+
+mvn verify → Verify results of integration tests.
+
+📖 Documentation & Reports
+mvn site → Generates project documentation site.
+
+mvn site:run → Runs documentation site locally.
+
+mvn project-info-reports:dependencies → Generates dependency report.
+
+🔧 Plugins & Goals
+mvn compiler:compile → Compile source code explicitly.
+
+mvn exec:java -Dexec.mainClass="com.example.Main" → Run Java class.
+
+mvn archetype:generate → Create new project from archetype.
+
+mvn install:install-file → Install external JAR into local repo.
+
+🚀 Other Useful Commands
+mvn help:effective-pom → Shows merged POM with inherited configs.
+
+mvn help:effective-settings → Shows effective Maven settings.
+
+mvn versions:display-dependency-updates → Lists newer dependency versions.
+
+mvn versions:display-plugin-updates → Lists newer plugin versions.
+
+✅ Bottom Line: These commands cover cleaning, building, testing, dependency management, documentation, and plugin execution — everything you’ll need for interviews and real-world projects.

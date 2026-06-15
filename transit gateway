@@ -1,0 +1,53 @@
+AWS Transit Gateway (TGW) is a powerful networking service that acts like a central hub to connect multiple VPCs, on-premises networks (via VPN or Direct Connect), and even other AWS accounts. Think of it as a “cloud router” that simplifies complex multi-VPC architectures.
+
+🔑 Core Features
+Hub-and-Spoke Model → Instead of creating dozens of peering connections, you connect each VPC to the TGW.
+
+Scalable → Supports thousands of VPCs and connections.
+
+Centralized Routing → Route tables are managed at the TGW level.
+
+Cross-Region Support → Can connect VPCs across AWS regions.
+
+Integration → Works with VPN, Direct Connect, and AWS PrivateLink.
+
+📊 Transit Gateway vs VPC Peering
+Feature	          VPC Peering	                                        Transit Gateway
+Topology	    Point-to-point	                                        Hub-and-spoke
+Scale	       Limited (no transitive routing)	                      Thousands of VPCs
+Routing       	Manual per VPC	                                      Centralized at TGW
+Cross-Region	Supported	                                             Supported
+Cost	       Cheaper for few VPCs	                                More cost-effective at scale
+Use Case	   Simple 1-to-1 VPC links	                            Complex multi-VPC, hybrid cloud
+
+
+⚙️ How It Works (Step-by-Step)
+Create Transit Gateway in AWS console.
+
+Attach VPCs → Each VPC connects to TGW via a TGW attachment.
+
+Configure TGW Route Tables → Decide how traffic flows between VPCs.
+
+Update VPC Route Tables → Point traffic for other VPCs to the TGW attachment.
+
+Enable Cross-Region Peering if needed.
+
+Test Connectivity → Instances in different VPCs communicate via private IPs.
+
+🚫 Limitations
+Higher cost compared to simple peering.
+
+Requires careful route table design to avoid blackholes.
+
+No automatic DNS resolution across VPCs (must configure).
+
+🧠 Best Practices
+Use TGW for large-scale, multi-VPC architectures.
+
+Keep route tables organized (segment workloads by environment).
+
+Combine with AWS Resource Access Manager (RAM) to share TGW across accounts.
+
+Monitor traffic with Transit Gateway Flow Logs.
+
+✅ Bottom Line: Transit Gateway is the enterprise-grade solution for connecting multiple VPCs and hybrid networks, offering centralized control and scalability that VPC peering alone cannot handle.

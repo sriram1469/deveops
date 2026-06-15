@@ -1,0 +1,58 @@
+AWS VPN (Virtual Private Network) is a secure way to connect your on-premises network (like a corporate data center) to your AWS cloud resources. It encrypts traffic over the public internet, ensuring confidentiality and integrity while extending your private network into AWS.
+
+🔑 Types of AWS VPN
+Site-to-Site VPN
+
+Connects your on-premises network to an AWS VPC.
+
+Uses IPsec tunnels over the internet.
+
+Often paired with AWS Virtual Private Gateway or Transit Gateway.
+
+Best for hybrid cloud setups.
+
+Client VPN
+
+Allows individual users (employees, contractors) to securely connect to AWS resources.
+
+Uses OpenVPN-based connections.
+
+Ideal for remote workforce access.
+
+⚙️ How Site-to-Site VPN Works
+Create a Virtual Private Gateway (VGW) or attach your VPC to a Transit Gateway.
+
+Configure Customer Gateway (CGW) → Represents your on-premises router/firewall.
+
+Establish VPN Connection → AWS generates configuration files for your device.
+
+Set Up IPsec Tunnels → Usually two tunnels for redundancy.
+
+Update Route Tables → Ensure traffic destined for AWS goes through the VPN.
+
+📊 VPN vs Direct Connect
+Feature	          VPN (Site-to-Site)	         Direct Connect
+Medium	           Public Internet	            Private fiber link
+Security	      Encrypted (IPsec)	          Private, no encryption needed
+Latency	              Variable	               Consistent, low latency
+Cost	                 Lower	                      Higher
+Use Case	     Quick, secure setup	      High-performance, enterprise workloads
+
+
+🚫 Limitations
+Bandwidth depends on internet connection.
+
+Latency can fluctuate.
+
+Requires proper firewall/router configuration.
+
+🧠 Best Practices
+Use two tunnels for high availability.
+
+Monitor with CloudWatch metrics.
+
+For large-scale hybrid setups, combine VPN + Direct Connect (Direct Connect for primary, VPN for backup).
+
+Use Transit Gateway if connecting multiple VPCs and on-premises networks.
+
+✅ Bottom Line: AWS VPN is the fastest way to securely extend your on-premises network into AWS. It’s flexible, cost-effective, and ideal for hybrid cloud or remote workforce scenarios.
