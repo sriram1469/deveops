@@ -1,0 +1,66 @@
+Terraform is an Infrastructure as Code (IaC) tool developed by HashiCorp that lets you define, provision, and manage cloud infrastructure using declarative configuration files. It’s widely used across AWS, Azure, GCP, and other providers for automating infrastructure deployment.
+
+⚙️ Terraform End-to-End Workflow
+Step	                    Description	                                             Example Command
+1️⃣ Write Configuration---> Define resources in .tf files using HCL (HashiCorp Configuration Language).---->	main.tf
+2️⃣ Initialize--->Download provider plugins and set up the working directory.--->terraform init
+3️⃣ Validate--->Check syntax and configuration correctness.--->terraform validate
+4️⃣ Plan---> Preview changes Terraform will make to reach the desired state.-->terraform plan
+5️⃣ Apply--->Execute the plan and create/update resources.-->terraform apply
+6️⃣ Show--->Display the current state of infrastructure.-->terraform show
+7️⃣ Destroy--->Remove all managed resources.-->terraform destroy
+
+
+🧩 Key Concepts
+Concept	                                         Meaning
+Providers	                     Plugins that interact with cloud platforms (AWS, Azure, GCP, etc.).
+Resources	                     Infrastructure components (EC2, S3, VPC, etc.).
+Modules	                         Reusable groups of resources for modular design.
+State File (terraform.tfstate)	 Tracks real-world infrastructure and configuration.
+Variables & Outputs	             Parameterize configurations and expose results.
+Backend	                         Defines where state is stored (local, S3, remote).
+
+🏗️ Setup & Initialization
+Command	                        Purpose	                                           Typical Use
+terraform init|Initializes working directory and downloads provider plugins.|	First step after writing .tf files.
+terraform fmt |Formats configuration files to standard style. |	Keeps code clean in CI/CD pipelines.
+terraform validate |	Checks syntax and configuration correctness. |	Run before committing code.
+
+
+📋 Planning & Execution
+Command	|Purpose	|Typical Use
+terraform plan	|Shows what changes will be made.|Used in pull requests or before apply.
+terraform apply  |-auto-approve	|Executes plan and provisions resources.Used in automated pipelines.
+terraform destroy |-auto-approve|Tears down infrastructure.	Used for cleanup in test environments.
+
+
+🧩 State Management
+Command	Purpose	Typical Use
+terraform show	|Displays current state.	|Debugging or documentation.
+terraform state list	|Lists all tracked resources.|	Verifying resource tracking.
+terraform state rm <resource>	|Removes resource from state file.	|When manually deleting resources.
+terraform refresh|	Updates state file with real cloud data.|	Sync after manual changes.
+
+
+🌍 Workspaces & Environments
+Command	Purpose	Typical Use
+terraform workspace list	|Lists all workspaces.	|Managing dev/staging/prod.
+terraform workspace new dev	|Creates a new workspace.|	Environment isolation.
+terraform workspace select prod|	Switches workspace.	|Deploying to production.
+
+
+🔐 Variables & Outputs
+Command	Purpose	Typical Use
+terraform output	|Displays output values.	|Fetching IPs, URLs, etc.
+terraform output -json	|Outputs in JSON format.	|Integration with scripts.
+
+🧠 Real‑Time Project Example
+
+terraform init
+terraform validate
+terraform plan -out=tfplan
+terraform apply -auto-approve tfplan
+terraform output
+
+
+

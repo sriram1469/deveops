@@ -1,0 +1,113 @@
+If all your infrastructure components (servers, containers, VPC, networking, etc.) show a healthy status but the application itself isn’t running, the issue usually lies at the application layer rather than the underlying resources. Here’s how you can systematically narrow it down:
+
+🔍 Common Causes
+Startup/Deployment Errors
+
+Application code has bugs or missing dependencies.
+
+Incorrect build artifacts (e.g., wrong JAR/WAR in Java, missing Docker image layers).
+
+Configuration Issues
+
+Environment variables not set (DB credentials, API keys).
+
+Misconfigured ports (app listening on 8080 but load balancer expects 80).
+
+Service Dependencies
+
+Database or external API reachable but authentication failing.
+
+DNS resolution errors for dependent services.
+
+Permissions
+
+IAM roles or service accounts missing required access.
+
+File system permissions blocking app startup.
+
+Runtime Errors
+
+Out-of-memory (OOMKilled in containers).
+
+Thread deadlocks or unhandled exceptions.
+
+🛠️ How to Overcome It
+Check Application Logs
+
+Look at container logs (docker logs <container>), EC2 logs, or CloudWatch logs.
+
+Identify if the app is crashing, stuck, or failing to bind to a port.
+
+Verify Configuration
+
+Ensure environment variables, secrets, and config files are correctly loaded.
+
+Double-check port mappings between app, container, and load balancer.
+
+Test Dependencies
+
+Run connectivity checks (telnet, curl, ping) to DBs or APIs.
+
+Validate credentials and permissions.
+
+Resource Monitoring
+
+Check CPU/memory usage. If OOM errors occur, increase resources or optimize code.
+
+Health Checks
+
+Confirm that the app’s health endpoint (/health, /status) is correctly implemented and returning 200.
+
+Rollback/Restart
+
+If a new deployment caused the issue, roll back to the last working version.
+
+Restart the app/service to clear transient errors.
+
+👉 In short: infra being healthy doesn’t guarantee app health. The fix almost always comes from logs + configs + dependency checks.
+
+
+🧭 App Not Running but Infra Healthy — Checklist
+1. Start Troubleshooting
+Confirm infra components (EC2, ECS, EKS, DB, Load Balancer) show “Healthy.”
+
+Move focus to application layer.
+
+2. Check Application Logs
+Inspect logs for startup errors, missing dependencies, or exceptions.
+
+If errors found → fix and redeploy.
+
+If no errors → proceed to configuration checks.
+
+3. Verify Configurations
+Ensure environment variables are correctly set.
+
+Check port mappings (app vs. container vs. load balancer).
+
+Validate config files and secrets.
+
+4. Test Dependencies
+Run connectivity tests to DBs, APIs, or external services.
+
+Confirm credentials and IAM permissions.
+
+If dependencies fail → fix access or credentials.
+
+5. Monitor Resources
+Check CPU/memory utilization.
+
+If OOMKilled or throttled → increase resources or optimize code.
+
+6. Health Checks
+Verify /health or /status endpoint returns 200.
+
+If failing → restart or rollback deployment.
+
+7. Final Validation
+Recheck app status.
+
+If still not running → revisit configuration or dependency layer.
+
+✅ Outcome
+App running successfully → mark issue as resolved.
