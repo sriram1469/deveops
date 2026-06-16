@@ -1,0 +1,107 @@
+Amazon Elastic Kubernetes Service (EKS) is AWS’s fully managed Kubernetes platform that simplifies running, scaling, and securing containerized applications across cloud, on-premises, and edge environments. It removes the heavy lifting of managing Kubernetes clusters while integrating tightly with AWS services for performance, cost optimization, and security.
+
+🔑 Key Features of Amazon EKS
+Managed Control Plane: AWS runs and scales the Kubernetes control plane across multiple Availability Zones for high availability.
+
+EKS Auto Mode: Automates compute, storage, and networking management, including node provisioning, scaling, patching, and cost optimization.
+
+Hybrid & Anywhere Support: Run Kubernetes clusters in AWS, on-premises (EKS Anywhere), or edge locations (EKS Hybrid Nodes).
+
+Security Integration: Native integration with AWS Identity and Access Management (IAM), AWS Key Management Service (KMS), and other security services.
+
+Flexibility in Compute: Supports both Amazon EC2 and AWS Fargate for running workloads.
+
+Certified Kubernetes-Conformant: Ensures compatibility with upstream Kubernetes tools and plug-ins.
+
+📊 EKS Deployment Options
+Option	         What AWS Manages	                 Best Use Case
+EKS Standard	Control plane only	   Teams needing flexibility to manage worker nodes themselves
+EKS Auto Mode	Control plane + nodes (data plane)	Teams wanting full automation, reduced ops overhead, and cost optimization
+
+🚀 Common Use Cases
+AI/ML Workloads: Distributed training and inference with Kubernetes flexibility and AWS scalability.
+
+Data Platforms: Cost-efficient batch processing and big data workloads.
+
+Internal Developer Platforms: Standardized environments combining open-source Kubernetes with AWS services.
+
+Hybrid Applications: Unified management across cloud, on-premises, and edge.
+
+⚠️ Challenges & Trade-offs
+Cost Management: While Auto Mode optimizes costs, large-scale workloads can still be expensive if not monitored.
+
+Learning Curve: Kubernetes concepts (pods, deployments, services) must be understood before leveraging EKS effectively.
+
+Vendor Lock-in: Deep AWS integration may limit portability compared to self-managed Kubernetes clusters.
+
+Networking Complexity: Configuring VPC, security groups, and IAM roles correctly is critical to avoid misconfigurations.
+
+📌 Why Choose EKS?
+Reliability: Runs across multiple AZs with automated failover.
+
+Scalability: Seamlessly scales workloads to meet demand.
+
+Security: Built-in AWS compliance and security services.
+
+Consistency: Same Kubernetes experience across AWS cloud, on-premises, and edge
+
+👉 If you’re preparing for AWS interviews, focus on:
+
+EKS architecture (control plane vs. data plane)
+
+EKS Auto Mode vs. Standard Mode
+
+Integration with IAM, VPC, and AWS services
+
+Real-world use cases (AI/ML, hybrid apps, data platforms)
+
+🏗️ Cluster Management
+eksctl create cluster --name myCluster --region us-east-1 --nodes 3 → Create a new EKS cluster
+
+eksctl get cluster → List all clusters
+
+eksctl delete cluster --name myCluster → Delete a cluster
+
+aws eks update-kubeconfig --region us-east-1 --name myCluster → Update kubeconfig to connect kubectl to EKS
+
+📦 Node Group Management
+eksctl create nodegroup --cluster myCluster --name ng1 --nodes 3 → Add a node group
+
+eksctl get nodegroup --cluster myCluster → List node groups
+
+eksctl delete nodegroup --cluster myCluster --name ng1 → Remove a node group
+
+🌐 Deployments & Services (via kubectl)
+kubectl apply -f deployment.yaml → Deploy workloads
+
+kubectl get pods -n mynamespace → List pods in a namespace
+
+kubectl get svc → List services
+
+kubectl describe svc myservice → Inspect service details
+
+🔍 Monitoring & Debugging
+kubectl logs <pod-name> → View pod logs
+
+kubectl exec -it <pod-name> -- bash → Open shell inside pod
+
+kubectl get events → Show cluster events
+
+kubectl top nodes → Resource usage of nodes
+
+kubectl top pods → Resource usage of pods
+
+⚙️ Scaling & Updates
+kubectl scale deployment myapp --replicas=5 → Scale pods
+
+kubectl rollout status deployment/myapp → Check rollout progress
+
+kubectl rollout undo deployment/myapp → Rollback deployment
+
+🗣️ Interview Narration Tip
+
+“In real projects, I use eksctl for cluster and node group management, and kubectl for deployments, scaling, and debugging. The combination of these commands covers the full lifecycle of EKS workloads.”
+
+✅ Bottom Line:  
+EKS commands are a mix of eksctl (cluster/node ops) and kubectl (workload ops). Together, they let you create, manage, scale, and troubleshoot Kubernetes clusters on AWS.
+
