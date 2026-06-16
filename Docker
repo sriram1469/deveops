@@ -1,0 +1,242 @@
+Docker is a platform that enables developers to build, package, and run applications inside containers — lightweight, portable units that include everything needed to run the software (code, runtime, libraries, dependencies).
+
+🔑 Key Concepts
+Container → Isolated environment for running applications.
+
+Image → Blueprint for a container (built from a Dockerfile).
+
+Dockerfile → Script with instructions to build an image.
+
+Docker Hub → Public registry for sharing images.
+
+Docker Engine → Core runtime that executes containers.
+
+⚙️ How Docker Works (Real‑Time Flow)
+Developer writes a Dockerfile → Defines base image, dependencies, and commands.
+
+Build an image → docker build -t myapp .
+
+Run a container → docker run -p 8080:8080 myapp
+
+Test locally → Application runs in isolated environment.
+
+Push to registry → docker push myapp → Share with team.
+
+Deploy anywhere → Same container runs on dev machine, test server, or cloud (AWS, GCP, Azure).
+
+🚫 Common Errors in Real Projects
+Image build errors → Wrong Dockerfile syntax or missing dependencies.
+
+Port conflicts → Container port already in use.
+
+Volume mount issues → Incorrect path mapping between host and container.
+
+Networking errors → Containers can’t communicate due to misconfigured bridge networks.
+
+Resource limits → Containers crash if CPU/memory quotas are exceeded.
+
+✅ Bottom Line: Docker makes applications portable, consistent, and easy to deploy, forming the backbone of modern DevOps and microservices architectures.
+
+🧹 Container Management
+docker ps → List running containers
+
+docker ps -a → List all containers (including stopped)
+
+docker run -d -p 8080:80 nginx → Run container in detached mode, map ports
+
+docker stop <container_id> → Stop a running container
+
+docker start <container_id> → Start a stopped container
+
+docker restart <container_id> → Restart container
+
+docker rm <container_id> → Remove container
+
+📦 Image Management
+docker images → List images
+
+docker build -t myapp . → Build image from Dockerfile
+
+docker pull ubuntu:20.04 → Download image from Docker Hub
+
+docker push myrepo/myapp → Push image to registry
+
+docker rmi <image_id> → Remove image
+
+📂 Volumes & Data
+docker volume ls → List volumes
+
+docker volume create myvolume → Create volume
+
+docker run -v myvolume:/data myapp → Mount volume to container
+
+docker run -v /host/path:/container/path myapp → Bind mount host directory
+
+🌐 Networking
+docker network ls → List networks
+
+docker network create mynet → Create custom network
+
+docker run --network=mynet myapp → Attach container to network
+
+docker inspect <container_id> → View container details (IP, config)
+
+🔧 Debugging & Logs
+docker logs <container_id> → View container logs
+
+docker exec -it <container_id> bash → Open interactive shell inside container
+
+docker inspect <container_id> → Detailed info about container
+
+docker stats → Show resource usage (CPU, memory)
+
+🚀 Docker Compose
+docker-compose up -d → Start services in background
+
+docker-compose down → Stop and remove services
+
+docker-compose ps → List running services
+
+docker-compose logs → View logs for services
+
+✅ Bottom Line: These commands cover running containers, managing images, handling volumes, networking, debugging, and multi‑container setups with Docker Compose — everything you’ll need for real‑world projects and interviews.
+
+📊 Docker Architecture Overview
+Docker Client
+
+CLI (docker run, docker build) or GUI tools.
+
+Sends commands to the Docker Daemon.
+
+Docker Daemon (Engine)
+
+Core service that manages images, containers, networks, and volumes.
+
+Runs on the host machine.
+
+Images
+
+Read‑only templates used to create containers.
+
+Built from Dockerfiles.
+
+Containers
+
+Running instances of images.
+
+Lightweight, isolated, portable.
+
+Volumes
+
+Persistent storage for containers.
+
+Decouples data from container lifecycle.
+
+Networks
+
+Enable communication between containers.
+
+Bridge, host, overlay, custom networks.
+
+Registry (e.g., Docker Hub, AWS ECR)
+
+Stores and distributes images.
+
+Developers push/pull images here.
+
+🗣️ Interview Narration Tip
+
+“Docker architecture is built around the Docker Engine, which manages images and containers. Developers interact with Docker through the client, which sends commands to the daemon. Images are stored in registries like Docker Hub, pulled into the engine, and run as containers. Volumes provide persistent storage, and networks allow containers to communicate. This architecture makes applications portable and consistent across environments.”
+
+✅ With this diagram + narration, you can clearly explain Docker’s ecosystem in interviews.
+
+📄 Basic Structure of a Dockerfile
+
+# 1. Base image
+FROM openjdk:17-jdk-slim
+
+# 2. Set working directory inside container
+WORKDIR /app
+
+# 3. Copy application files into container
+COPY target/myapp.jar /app/myapp.jar
+
+# 4. Define command to run application
+CMD ["java", "-jar", "myapp.jar"]
+
+🔑 Common Dockerfile Instructions
+FROM → Defines the base image (e.g., ubuntu, openjdk, node).
+
+WORKDIR → Sets the working directory inside the container.
+
+COPY → Copies files from host to container.
+
+RUN → Executes commands during image build (e.g., install packages).
+
+CMD → Default command to run when container starts.
+
+EXPOSE → Declares the port the app listens on.
+
+ENV → Sets environment variables.
+
+🧠 Best Practices
+Use small base images (e.g., alpine) to reduce size.
+
+Keep layers minimal (combine RUN commands).
+
+Use .dockerignore to avoid copying unnecessary files.
+
+Pin versions for reproducibility.
+
+Separate build and runtime stages with multi‑stage builds.
+
+✅ Bottom Line: A Dockerfile is your blueprint for creating consistent, portable containers.
+
+📄 Multi‑Stage Dockerfile (Java/Maven)
+
+# -------- Stage 1: Build --------
+FROM maven:3.8.8-openjdk-17 AS build
+
+# Set working directory
+WORKDIR /app
+
+# Copy pom.xml and download dependencies first (caching optimization)
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copy source code and build
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# -------- Stage 2: Runtime --------
+FROM openjdk:17-jdk-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy only the built artifact from build stage
+COPY --from=build /app/target/myapp.jar ./myapp.jar
+
+# Expose application port
+EXPOSE 8080
+
+# Run the application
+CMD ["java", "-jar", "myapp.jar"]
+
+🔑 Why Multi‑Stage?
+Smaller final image → Only contains JDK + JAR, not Maven or source code.
+
+Faster builds → Dependencies cached in Stage 1.
+
+Security → No unnecessary build tools in runtime image.
+
+Portability → Same image runs in dev, test, and production.
+
+🗣️ Interview Narration Tip
+
+“In real projects, I use multi‑stage Dockerfiles. The first stage uses Maven to build the JAR, and the second stage runs it with a slim JDK image. This keeps the final image lightweight and secure, while ensuring reproducible builds in CI/CD pipelines.”
+
+✅ With this example, you can confidently explain how Docker integrates with Maven builds in Jenkins pipelines.
+
+🧠 Interview Narration Tip
+“In real projects, Docker errors usually fall into categories: build errors due to bad Dockerfiles, runtime issues like port conflicts or resource limits, networking misconfigurations, and container crashes. The key is to check logs, validate Dockerfile syntax, and isolate the failing component. I always emphasize using docker logs, docker inspect, and resource monitoring to troubleshoot quickly.”
