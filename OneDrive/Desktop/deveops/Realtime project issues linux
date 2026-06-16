@@ -1,0 +1,28 @@
+Linux
+
+Monitoring Simple Troubleshooting
+
+Server Slow?
+top---> Check CPU storage
+High CPU usage
+top-->find which process
+memory issue?
+free -h-->check RAM usage
+Load high CPU normal?
+iostat---->check disk issue
+Disk Slow?
+iostat---->check disk performance
+Disk full?
+df -h -->check space
+which folder is large?
+du -sh* -->find size
+which process are running?
+ps -ef---> list process
+App not Working?
+ss -tulpn --->check port/service
+Network issue?
+ping ---> check connectivity
+App showing Error?
+tail -f logfile --->check live log
+find exact error?
+grep error logfile--->seach error
