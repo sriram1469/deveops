@@ -134,3 +134,74 @@ mvn versions:display-dependency-updates → Lists newer dependency versions.
 mvn versions:display-plugin-updates → Lists newer plugin versions.
 
 ✅ Bottom Line: These commands cover cleaning, building, testing, dependency management, documentation, and plugin execution — everything you’ll need for interviews and real-world projects.
+
+Maven LifeCycle
+
+Maven’s end-to-end lifecycle is built around three major lifecycles — default, clean, and site — each composed of sequential phases. The most important is the default lifecycle, which runs from validate all the way to deploy, ensuring your project is compiled, tested, packaged, verified, installed locally, and finally deployed to a remote repository.
+
+🔑 Maven Lifecycles Overview
+Maven defines three core lifecycles:
+
+Default Lifecycle → Handles project build and deployment.
+
+Clean Lifecycle → Cleans up artifacts from previous builds.
+
+Site Lifecycle → Generates and publishes project documentation.
+
+📂 Default Lifecycle (End-to-End Phases)
+This is the most commonly used lifecycle. It includes the following phases executed in order:
+
+Phase	                                        Purpose
+validate	                   Check project structure and required info.
+initialize                     Initialize build state (e.g., properties).
+generate-sources	           Generate source code (if needed).
+process-sources	               Process source code (e.g., filtering).
+compile                        Compile Java source files.
+process-classes	               Post-process compiled classes.
+generate-test-sources	       Generate test source code.
+process-test-sources	       Process test source code.
+test-compile	               Compile test classes.
+test	                       Run unit tests (without packaging).
+prepare-package	               Prepare for packaging (e.g., bytecode enhancement).
+package	                       Bundle compiled code into JAR/WAR.
+pre-integration-test	       Setup integration test environment.
+integration-test	           Run integration tests.
+post-integration-test	       Cleanup after integration tests.
+verify	                       Run checks to ensure quality criteria are met.
+install	                       Install artifact into local Maven repository.
+deploy	                       Copy final package to remote repository.
+
+
+👉 Key point: You don’t need to run every phase manually. Running mvn install will execute all prior phases in sequence up to install. Running mvn deploy executes the full chain up to deployment.
+
+🧹 Clean Lifecycle
+pre-clean → Tasks before cleaning.
+
+clean → Remove target/ directory and build artifacts.
+
+post-clean → Tasks after cleaning.
+
+📖 Site Lifecycle
+pre-site → Preparation before site generation.
+
+site → Generate project documentation site.
+
+post-site → Tasks after site generation.
+
+site-deploy → Deploy site to a server.
+
+⚙️ Practical Usage
+mvn clean install → Cleans old builds, compiles, tests, packages, and installs locally.
+
+mvn deploy → Full build + deployment to remote repository.
+
+mvn site → Generates project documentation.
+
+🚨 Risks & Best Practices
+Skipping phases: Running mvn package skips install and deploy. Use carefully depending on your goal.
+
+Integration tests: Often overlooked, but critical for CI/CD pipelines.
+
+Dependency conflicts: Pin versions in pom.xml to avoid build failures.
+
+Automation: Use Maven Wrapper (mvnw) for consistent builds across environments.
