@@ -24,8 +24,6 @@ CI/CD Integration: Combine with Jenkins, Git, Docker, and Kubernetes for automat
 
 ⚙️ Getting Started
 Install Ansible:
-
-bash
 pip install ansible
 Create an Inventory File: Define hosts and groups.
 
@@ -44,16 +42,14 @@ yaml
         name: httpd
         state: present
 Run the Playbook:
-
-bash
 ansible-playbook install_apache.yml
 ```  
 
 📊 Comparison with Other Tools
-Tool	Key Strengths	                                                Limitations
+Tool	         Key Strengths	                                                Limitations
 Ansible	Agentless, simple YAML syntax, strong community	 Slower for very large-scale parallel tasks
 Puppet	Strong declarative model, mature ecosystem	     Requires agents, steeper learning curve
-Chef	Ruby-based DSL, flexible	                     Complex setup, requires agents
+Chef	    Ruby-based DSL, flexible	                         Complex setup, requires agents
 SaltStack	Fast execution, event-driven automation      	More complex architecture
 
 
@@ -63,3 +59,78 @@ Performance: For very large infrastructures, execution can be slower compared to
 Learning Curve: While YAML is simple, mastering advanced modules and collections takes time.
 
 Version Compatibility: Frequent updates may require porting guides for older playbooks.
+
+🔑 Core Ansible Commands
+📋 Inventory Management
+List inventory (JSON):  
+ansible-inventory -i inventory.ini --list
+
+List inventory (YAML):  
+ansible-inventory -i inventory.ini --list -y
+
+Graph view:  
+ansible-inventory -i inventory.ini --graph
+
+Host details:  
+ansible-inventory -i inventory.ini --host hostname
+
+⚡ Ad-Hoc Commands
+Ping all hosts:  
+ansible -i inventory.ini all -m ping
+
+Gather facts:  
+ansible -i inventory.ini all -m setup
+
+Run uptime:  
+ansible -i inventory.ini all -a "uptime"
+
+Install package (Debian):  
+ansible localhost -m ansible.builtin.apt -a "name=apache2 state=present" -b -K
+
+Restart service:  
+ansible web -m service -a "name=nginx state=restarted" -b
+
+📘 Playbook Commands
+Run playbook:  
+ansible-playbook playbook.yml -i inventory.ini
+
+Dry-run (check mode):  
+ansible-playbook playbook.yml -i inventory.ini --check
+
+Verbose output:  
+ansible-playbook playbook.yml -vvv
+
+Limit to group:  
+ansible-playbook playbook.yml -i inventory.ini --limit web
+
+Start at specific task:  
+ansible-playbook playbook.yml --start-at-task "Install nginx"
+
+📦 Roles & Collections
+Create role structure:  
+ansible-galaxy init myrole
+
+Install role from Galaxy:  
+ansible-galaxy role install geerlingguy.apache
+
+Install collection:  
+ansible-galaxy collection install mynamespace.mycollection
+
+Install multiple collections:  
+ansible-galaxy collection install -r requirements.yml
+
+List installed roles/collections:  
+ansible-galaxy role list / ansible-galaxy collection list
+
+🔐 Vault Commands
+Create encrypted file:  
+ansible-vault create secrets.yml
+
+Encrypt existing file:  
+ansible-vault encrypt vars.yml
+
+Decrypt file:  
+ansible-vault decrypt vars.yml
+
+Run playbook with vault password prompt:  
+ansible-playbook playbook.yml --ask-vault-pass

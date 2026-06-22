@@ -1,0 +1,162 @@
+Amazon CloudWatch is AWS’s native monitoring and observability service that collects metrics, logs, and traces from your cloud resources and applications, helping you detect issues, set alarms, and visualize performance in real time. It’s essential for tracking system health, troubleshooting, and automating responses to infrastructure or application changes.
+
+🌐 Key Features of AWS CloudWatch
+📊 Metrics & Dashboards
+Metrics: Automatically collects data from AWS services (EC2, RDS, Lambda, etc.) and supports custom metrics via API or CloudWatch Agent.
+
+Dashboards: Unified, customizable views of metrics and logs. Can be shared across accounts and regions.
+
+Automatic dashboards: Prebuilt for many AWS services to reduce setup effort.
+
+🔔 Alarms & Automated Actions
+Alarms: Monitor metrics against thresholds (e.g., CPU > 80%).
+
+Actions: Trigger notifications (SNS), auto-scaling, or automated remediation when thresholds are breached.
+
+Composite alarms: Combine multiple alarms for complex monitoring scenarios.
+
+📜 Logs & Insights
+CloudWatch Logs: Collect and store logs from AWS services, applications, and on-premises systems.
+
+Logs Insights: Query logs with a powerful SQL-like language for troubleshooting.
+
+Log classes:
+
+Standard (frequent access)
+
+Infrequent Access (Logs-IA) (cost-optimized for rarely accessed logs)
+
+⚙️ Application & Infrastructure Monitoring
+Application Signals: Auto-detect latency, error rates, and request rates without manual instrumentation.
+
+CloudWatch Synthetics: Simulate user behavior with “canaries” to proactively test endpoints and APIs.
+
+CloudWatch RUM (Real User Monitoring): Collects performance data from real user sessions.
+
+Database Insights: Monitor query performance and troubleshoot load issues.
+
+Container & Lambda Insights: Specialized monitoring for ECS, EKS, and AWS Lambda.
+
+🔄 Advanced Capabilities
+Cross-account observability: Monitor applications spanning multiple AWS accounts.
+
+OpenTelemetry support: Integrates with open-source observability tools like Prometheus and Grafana.
+
+Metric Streams: Continuously stream metrics to external destinations (e.g., Kinesis, data lakes).
+
+AI-powered anomaly detection: Automatically identifies unusual patterns in metrics.
+
+| Feature                 | Purpose                | Example Use Case               |
+| ---                     | ---                    | ---                            |
+| **Metrics**             | Track performance data | CPU utilization of EC2         |
+| **Dashboards**          | Visualize metrics/logs | Unified view of app health     |
+| **Alarms**              | Trigger alerts/actions | Auto-scale when traffic spikes |
+| **Logs Insights**       | Query logs             | Debugging failed API calls     |
+| **Synthetics**          | Simulate user traffic  | Test API availability          |
+| **RUM**                 | Real user monitoring   | Track frontend latency         |
+| **Container Insights**  | Monitor ECS/EKS        | Spot pod-level bottlenecks     |
+| **Lambda Insights**     | Monitor serverless apps| Debug function errors          |
+
+📊 Metrics
+List all available metrics  
+Shows what metrics are being collected for a service.
+aws cloudwatch list-metrics --namespace AWS/EC2
+
+Get metric statistics  
+Retrieves data points (like average CPU usage) for a given time range.
+aws cloudwatch get-metric-statistics \
+  --metric-name CPUUtilization \
+  --namespace AWS/EC2 \
+  --start-time 2026-06-17T00:00:00Z \
+  --end-time 2026-06-17T23:59:59Z \
+  --period 300 \
+  --statistics Average \
+  --region ap-south-1
+
+Put custom metric data  
+Push your own application metrics into CloudWatch.
+aws cloudwatch put-metric-data \
+  --metric-name PageLoadTime \
+  --namespace MyApp \
+  --value 2.5 \
+  --unit Seconds
+
+🔔 Alarms
+Create an alarm  
+Triggers when CPU > 80% for 2 evaluation periods.
+aws cloudwatch put-metric-alarm \
+  --alarm-name HighCPU \
+  --metric-name CPUUtilization \
+  --namespace AWS/EC2 \
+  --statistic Average \
+  --period 300 \
+  --threshold 80 \
+  --comparison-operator GreaterThanThreshold \
+  --dimensions Name=InstanceId,Value=i-1234567890abcdef0 \
+  --evaluation-periods 2 \
+  --alarm-actions arn:aws:sns:ap-south-1:123456789012:NotifyMe \
+  --unit Percent
+
+Describe alarms
+aws cloudwatch describe-alarms
+
+Delete an alarm
+aws cloudwatch delete-alarms --alarm-names HighCPU
+
+Disable alarm actions
+aws cloudwatch disable-alarm-actions --alarm-names HighCPU
+
+Enable alarm actions
+aws cloudwatch enable-alarm-actions --alarm-names HighCPU
+
+📜 Logs
+Create a log group
+aws logs create-log-group --log-group-name MyAppLogs
+
+Create a log stream
+aws logs create-log-stream --log-group-name MyAppLogs --log-stream-name Stream1
+
+Put log events
+aws logs put-log-events \
+  --log-group-name MyAppLogs \
+  --log-stream-name Stream1 \
+  --log-events file://events.json
+
+Get log events
+aws logs get-log-events --log-group-name MyAppLogs --log-stream-name Stream1
+
+Delete a log group
+aws logs delete-log-group --log-group-name MyAppLogs
+
+🧠 Logs Insights
+Start a query
+aws logs start-query \
+  --log-group-name MyAppLogs \
+  --start-time 1623900000 \
+  --end-time 1623986400 \
+  --query-string "fields @timestamp, @message | sort @timestamp desc | limit 20"
+
+Get query results
+aws logs get-query-results --query-id <query-id>
+
+🧩 Dashboards
+List dashboards
+aws cloudwatch list-dashboards
+Get a dashboard
+aws cloudwatch get-dashboard --dashboard-name MyDashboard
+Put (create/update) a dashboard
+aws cloudwatch put-dashboard \
+  --dashboard-name MyDashboard \
+  --dashboard-body file://dashboard.json
+Delete dashboards
+aws cloudwatch delete-dashboards --dashboard-names MyDashboard
+
+⚙️ Events
+List rules
+aws events list-rules
+Put a rule (scheduled event)
+aws events put-rule --name EC2StopRule --schedule-expression "rate(5 minutes)"
+Put targets for a rule
+aws events put-targets --rule EC2StopRule --targets file://targets.json
+Delete a rule
+aws events delete-rule --name EC2StopRule

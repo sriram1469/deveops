@@ -1,0 +1,61 @@
+A CI/CD pipeline (Continuous Integration / Continuous Delivery/Deployment) is the backbone of 
+modern DevOps. It automates the process of building, testing, and deploying applications so 
+teams can deliver software faster and more reliably.Let me break it down for you with 
+explanation and commands/examples:
+🔑 CI/CD Pipeline Stages
+Source (Code Commit)
+
+Developers push code to GitHub/GitLab/Bitbucket.
+
+Pipeline is triggered via webhook or polling.
+
+Example (Git command):
+git push origin main
+Build
+
+Code is compiled and dependencies are installed.
+
+Example (Maven build in Jenkins):
+stage('Build') {
+  steps {
+    sh 'mvn clean compile'
+  }
+}
+Test
+
+Unit tests, integration tests, and automated QA checks run.
+
+Example (JUnit with Maven):
+stage('Test') {
+  steps {
+    sh 'mvn test'
+  }
+}
+Package
+
+Application is packaged into an artifact (JAR, WAR, Docker image).
+
+Example (Docker build):
+docker build -t myapp:latest .
+Deploy
+
+Artifact is deployed to servers, containers, or cloud platforms.
+
+Example (Kubernetes deployment):
+kubectl apply -f deployment.yaml
+Monitor
+
+Logs and metrics are tracked via CloudWatch, Prometheus, or Grafana.
+
+Example (CloudWatch logs query):
+aws logs get-log-events --log-group-name MyAppLogs --log-stream-name Stream1
+⚙️ Tools Commonly Used
+Jenkins / GitHub Actions / GitLab CI → Pipeline orchestration
+
+Maven / Gradle / npm → Build tools
+
+JUnit / Selenium / PyTest → Testing frameworks
+
+Docker / Kubernetes → Containerization & orchestration
+
+AWS CloudWatch / Prometheus → Monitoring
